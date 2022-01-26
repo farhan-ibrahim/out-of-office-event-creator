@@ -2,8 +2,6 @@
 GMAIL_SENDER = 'noreply@seatalk.io'
 GMAIL_TEXT = "Your following leave application has been approved"
 GMAIL_KEYWORD = 	"Leave Type"
-DEFAULT_EVENT_TIME = 30
-DATE_FORMAT = 'ROW' // US (m/d/y) or ROW (d/m/y)
 
 //////////////////////////////////////////////////////////////////////////// 
 
@@ -25,17 +23,6 @@ function getEmail() {
   var endDate = new Date(leaveDate.split(" - ")[1])
 
   createEvent(leaveType, startDate, endDate)
-  
-  // // Only create events for unread messages in the GMAIL_LABEL
-  // for (var i = 0; i < threads.length; i++) {    
-  //   if (threads[i].isUnread()) {
-  //     var emailSubject = threads[i].getFirstMessageSubject()
-  //     var emailMessage = threads[i].getMessages()[0].getPlainBody()
-  //     var [eventTitle, startTime, endTime, isAllDay, optionalParams] = parseEmail(emailSubject, emailMessage)  
-  //     createEvent(eventTitle, startTime, endTime, isAllDay, optionalParams) 
-  //     threads[i].markRead()
-  //   } 
-  // }
 }
 
 function createEvent(leaveType, startDate, endDate){
@@ -54,11 +41,6 @@ function createEvent(leaveType, startDate, endDate){
   
   var event = CalendarApp.getDefaultCalendar().createAllDayEvent(...calPayload)
 
-  // if (isAllDay) {
-  //   var event = CalendarApp.getDefaultCalendar().createAllDayEvent(...calPayload)
-  // } else {
-  //   var event = CalendarApp.getDefaultCalendar().createEvent(...calPayload)
-  // }
   Logger.log('Event Added: ' + eventTitle + ', ' + startDate + '(ID: ' + event.getId() + ')');
 }
 
